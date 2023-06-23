@@ -1,5 +1,6 @@
 -Make gameboard class
 -Make brick class
+-make board render bricks to screen
 -Randomly generate specific tetris brick types and colors
 -Make user input to move bricks down
 -Add ability to check if a row is filled
@@ -12,5 +13,6 @@
 
 Logic for board:
 Have an array holding either a block or a blank space
+have a function to go through and render each
 Move every block down one cell each tick
 if a row is full then delete every item in the row
