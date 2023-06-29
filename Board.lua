@@ -9,19 +9,20 @@ function Board:init()
     for y = 1, self.h do 
         self.data[y] = {};
         for x = 1, self.w do 
-            self.data[y][x] = ' '; 
+            self.data[y][x] = 1; 
         end
     end
     self.colors = {
-        {0,0,0,255},
-        {0,255,255,255},
-        {255,255,0,255},
-        {128,0,128,255},
-        {0,255,0,255},
-        {255,0,0,255},
-        {0,0,255,255},
-        {255,127,0,255}
+        {0,0,0},
+        {0,255,255},
+        {255,255,0},
+        {128,0,128},
+        {0,255,0},
+        {255,0,0},
+        {0,0,255},
+        {255,127,0}
     }
+    self.data[2][2] = 2;
 end
 
 function Board:update()
@@ -31,8 +32,10 @@ end
 function Board:render()
     for y = 1,self.h do 
         for x = 1, self.w do
-            color = self.colors[self.data[x][y]];
-            love.graphics.setColor(0,0,0,255); 
+            local index = self.data[y][x]
+            local color = self.colors[index];
+            love.graphics.setColor(color); 
+            love.graphics.print(tostring(color),300,100); 
             love.graphics.rectangle('fill', (x-1) * cellSize, (y-1) * cellSize, cellSize -1, cellSize -1); 
         end
     end
