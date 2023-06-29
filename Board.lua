@@ -137,7 +137,7 @@ function Board:init()
         {
             {1,8,1,1},
             {8,8,1,1},
-            {8,1,1,1},
+            {7,1,1,1},
             {1,1,1,1},
         },
         },
@@ -152,9 +152,8 @@ function Board:init()
         {0,0,255},
         {255,127,0}
     }
-    self.data[2][2] = 2;
-    self.pieceType = 1; 
-    self.rotation = 2; 
+    self.pieceType = math.random(1,7); 
+    self.rotation = 1; 
 end
 
 function Board:update()
@@ -170,11 +169,12 @@ function Board:render()
     end
     for y = 1, 4 do 
         for x = 1, 4 do 
-            local piece = self.blockTypes[self.pieceType][self.rotation][x][y]; 
-            self:drawBlock(piece, x, y);
+            local piece = self.blockTypes[self.pieceType][self.rotation][y][x]; 
+            self:drawBlock(piece, x + 3, y);
         end
     end
 end
+
 function Board:drawBlock(block,x,y)
     local color = self.colors[block]; 
     love.graphics.setColor(color); 
