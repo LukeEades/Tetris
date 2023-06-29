@@ -1,11 +1,15 @@
 require "class"; 
 require "Brick"; 
+require "Board";
 
 function love.load() 
     WIDTH = 1080; 
     HEIGHT = 720; 
+    love.window.setTitle('Tetris'); 
     love.window.setMode(WIDTH, HEIGHT, {fullscreen = false,resizable = false, vsync = true});
-    brick = Brick({255,255,255,255});
+    board = Board();
+    love.graphics.setBackgroundColor(255,255,255,255);
+    cellSize = 20; 
 end
 
 function love.update()
@@ -13,7 +17,7 @@ function love.update()
 end
 
 function love.draw()
-   brick:render(); 
+   board:render(); 
 end
 function love.keypressed(key) 
     if key == 'escape' then
