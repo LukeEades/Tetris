@@ -155,7 +155,7 @@ function Board:init()
     self.pieceType = math.random(1,7); 
     self.rotation = 1; 
     self.blockX = 3; 
-    self.blockY = 1; 
+    self.blockY = 0; 
     self.level = 1; 
     self.timer = 1; 
 end
@@ -163,8 +163,11 @@ end
 function Board:update(dt)
     self.timer = self.timer - .01 * self.level;
     if self.timer < 0 then
-        if self:checkBlock(self.blockX,self.blockY, self.rotation) then
+        if self:checkBlock(self.blockX,self.blockY + 1, self.rotation) then
             self.blockY = self.blockY + 1;
+        else
+            self:turnStatic(self.blockX,self.blockY, self.rotation); 
+            self:spawnNew();
         end 
         self.timer = 1; 
     end
@@ -200,9 +203,7 @@ function Board:checkBlock(anX,anY,rotation)
             if self.blockTypes[self.pieceType][rotation][y][x] ~= 1 and ((anX + x) < 1 or (anX + x) > 10) then
                 return false; 
             end
-            if self.blockTypes[self.pieceType][rotation][y][x] ~= 1 and ((anY + y) > 19 or self.data[anY + y + 1][anX + x] ~= 1) then
-                self:turnStatic(anX,anY, rotation); 
-                self:spawnNew(); 
+            if self.blockTypes[self.pieceType][rotation][y][x] ~= 1 and ((anY + y) > 20 or self.data[anY + y][anX + x] ~= 1) then
                 return false; 
             end
         end

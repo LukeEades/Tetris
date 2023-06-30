@@ -59,6 +59,9 @@ function love.keypressed(key)
     if key == "down" then
         if board:checkBlock(board.blockX, board.blockY + 1, board.rotation) then
             board.blockY = board.blockY + 1; 
+        elseif board:checkBlock(board.blockX, board.blockY + 1, board.rotation) == false then
+            board:turnStatic(board.blockX,board.blockY, board.rotation); 
+            board:spawnNew();
         end
     end
 end
