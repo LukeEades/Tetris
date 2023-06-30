@@ -1,7 +1,7 @@
 require "class"; 
 require "Brick"; 
 require "Board";
-
+require "conf"; 
 function love.load() 
     math.randomseed(os.time()); 
     WIDTH = 1080; 
@@ -26,16 +26,24 @@ function love.keypressed(key)
     end
     if key == "x" then
         if board.blockTypes[board.pieceType][board.rotation + 1] ~= nil then
-            board.rotation = board.rotation + 1;
+            if board:checkRotate(board.blockX, board.blockY, board.rotation + 1) then
+                board.rotation = board.rotation + 1;
+            end
         else
-            board.rotation = 1; 
+            if board:checkRotate(board.blockX, board.blockY, 1) then
+                board.rotation = 1; 
+            end
         end 
     end
     if key == "z" then
         if board.blockTypes[board.pieceType][board.rotation - 1] ~= nil then
-            board.rotation = board.rotation - 1;
+            if board:checkRotate(board.blockX, board.blockY, board.rotation - 1) then
+                board.rotation = board.rotation - 1;
+            end
         else
-            board.rotation = #board.blockTypes[board.pieceType]; 
+            if board:checkRotate(board.blockX, board.blockY, #board.blockTypes[board.pieceType]) then
+                board.rotation = #board.blockTypes[board.pieceType]; 
+            end
         end 
     end
     if key == "right" then

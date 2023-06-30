@@ -212,6 +212,17 @@ function Board:turnStatic()
 
 end
 
-function Board:checkRotate()
-
+function Board:checkRotate(anX,anY,rotation)
+    return self:checkBlock(anX, anY, rotation); 
+    -- for y = 1, 4 do
+    --     for x = 1, 4 do
+    --         local item = self.blockTypes[self.pieceType][rotation][y][x]; 
+    --         if item ~= 1 and 
+    --         -- if self.data[anY + y][anX + x] ~= 1 then
+    --         --     print(tostring(y)); 
+    --         --     return false; 
+    --         -- end
+    --     end
+    -- end
+    -- return true; 
 end
