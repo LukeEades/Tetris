@@ -13,8 +13,8 @@ function love.load()
     cellSize = 20; 
 end
 
-function love.update()
-
+function love.update(dt)
+    board:update(dt); 
 end
 
 function love.draw()
@@ -24,18 +24,31 @@ function love.keypressed(key)
     if key == 'escape' then
         love.window.close(); 
     end
-    if key == "right" then
+    if key == "x" then
         if board.blockTypes[board.pieceType][board.rotation + 1] ~= nil then
             board.rotation = board.rotation + 1;
         else
             board.rotation = 1; 
         end 
     end
-    if key == "left" then
+    if key == "z" then
         if board.blockTypes[board.pieceType][board.rotation - 1] ~= nil then
             board.rotation = board.rotation - 1;
         else
             board.rotation = #board.blockTypes[board.pieceType]; 
         end 
+    end
+    if key == "right" then
+        if board:checkBlock(board.blockX + 1, board.blockY,board.rotation) then
+            board.blockX = board.blockX + 1; 
+        end
+    end
+    if key == "left" then 
+        if board:checkBlock(board.blockX - 1, board.blockY, board.rotation) then
+            board.blockX = board.blockX - 1; 
+        end
+    end
+    if key == "down" then
+        board.blockY = board.blockY + 1;
     end
 end

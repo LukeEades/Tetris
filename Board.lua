@@ -154,10 +154,20 @@ function Board:init()
     }
     self.pieceType = math.random(1,7); 
     self.rotation = 1; 
+    self.blockX = 3; 
+    self.blockY = 1; 
+    self.level = 1; 
+    self.timer = 1; 
+    -- self.locX = 0; 
+    -- self.locY = 0; 
 end
 
-function Board:update()
-
+function Board:update(dt)
+    self.timer = self.timer - .01 * self.level;
+    if self.timer < 0 then
+        self.blockY = self.blockY + 1; 
+        self.timer = 1; 
+    end
 end
 
 function Board:render()
@@ -170,7 +180,11 @@ function Board:render()
     for y = 1, 4 do 
         for x = 1, 4 do 
             local piece = self.blockTypes[self.pieceType][self.rotation][y][x]; 
-            self:drawBlock(piece, x + 3, y);
+            if piece ~= 1 then
+                local locX = x + self.blockX;
+                local locY = y + self.blockY;
+                self:drawBlock(piece,locX,locY);
+            end
         end
     end
 end
@@ -180,3 +194,35 @@ function Board:drawBlock(block,x,y)
     love.graphics.setColor(color); 
     love.graphics.rectangle('fill', (x-1) * cellSize, (y-1) * cellSize, cellSize -1, cellSize -1);
 end
+function Board:checkBlock(anX,anY,rotation)
+    for y = 1, 4 do
+        for x = 1, 4 do 
+            if self.blockTypes[self.pieceType][rotation][y][x] ~= 1 and ((anX + x) < 1 or (anX + x) > 10) then
+                return false; 
+            end 
+        end
+    end
+    return true; 
+end
+
+-- function Board:findWidth(rotation)
+--     local counterY = 0;
+--     local counterX = 0;  
+--     for y = 1, 4 do 
+--         for x = 1, 4 do 
+--             if self.blockTypes[self.pieceType][self.rotation][y][x] ~= 1 then
+--                 counterY = counterY + 1; 
+--             end
+--             if self.blockTypes[self.pieceType][self.rotation][y][x] == 1 then 
+--                 counterX = counterX + 1; 
+--             end
+--             if counterY == 4 then
+--                 return x; 
+--             end
+--         end
+--         if counterX == 0 then
+--             counterY = counterY - 1; 
+--         end
+--         counterX = 0; 
+--     end
+-- end
