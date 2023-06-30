@@ -49,6 +49,8 @@ function love.keypressed(key)
         end
     end
     if key == "down" then
-        board.blockY = board.blockY + 1;
+        if board:checkBlock(board.blockX, board.blockY + 1, board.rotation) then
+            board.blockY = board.blockY + 1; 
+        end
     end
 end
