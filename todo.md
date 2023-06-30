@@ -1,8 +1,4 @@
--Make gameboard class
--Make brick class
--make board render bricks to screen
 -Randomly generate specific tetris brick types and colors
--Make user input to move bricks down
 -Add ability to check if a row is filled
 -Delete row if filled
 -End game once blocks reach the top

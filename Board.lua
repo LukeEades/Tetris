@@ -200,29 +200,27 @@ function Board:checkBlock(anX,anY,rotation)
             if self.blockTypes[self.pieceType][rotation][y][x] ~= 1 and ((anX + x) < 1 or (anX + x) > 10) then
                 return false; 
             end
-            if self.blockTypes[self.pieceType][rotation][y][x] ~= 1 and (anY + y) > 19 then
-                self:turnStatic(); 
+            if self.blockTypes[self.pieceType][rotation][y][x] ~= 1 and ((anY + y) > 19 or self.data[anY + y + 1][anX + x] ~= 1) then
+                self:turnStatic(anX,anY, rotation); 
+                self:spawnNew(); 
                 return false; 
             end
         end
     end
     return true; 
 end
-function Board:turnStatic()
-
+function Board:turnStatic(anX, anY, rotation)
+    for y = 1, 4 do
+        for x = 1, 4 do
+            if self.blockTypes[self.pieceType][rotation][y][x] ~= 1 then
+                self.data[anY + y][anX + x] = self.blockTypes[self.pieceType][rotation][y][x]; 
+            end
+        end
+    end
 end
-
-function Board:checkRotate(anX,anY,rotation)
-    return self:checkBlock(anX, anY, rotation); 
-    -- for y = 1, 4 do
-    --     for x = 1, 4 do
-    --         local item = self.blockTypes[self.pieceType][rotation][y][x]; 
-    --         if item ~= 1 and 
-    --         -- if self.data[anY + y][anX + x] ~= 1 then
-    --         --     print(tostring(y)); 
-    --         --     return false; 
-    --         -- end
-    --     end
-    -- end
-    -- return true; 
+function Board:spawnNew()
+    self.pieceType = math.random(1,7); 
+    self.rotation = 1; 
+    self.blockX = 3; 
+    self.blockY = 1;
 end

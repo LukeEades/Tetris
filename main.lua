@@ -26,22 +26,22 @@ function love.keypressed(key)
     end
     if key == "x" then
         if board.blockTypes[board.pieceType][board.rotation + 1] ~= nil then
-            if board:checkRotate(board.blockX, board.blockY, board.rotation + 1) then
+            if board:checkBlock(board.blockX, board.blockY, board.rotation + 1) then
                 board.rotation = board.rotation + 1;
             end
         else
-            if board:checkRotate(board.blockX, board.blockY, 1) then
+            if board:checkBlock(board.blockX, board.blockY, 1) then
                 board.rotation = 1; 
             end
         end 
     end
     if key == "z" then
         if board.blockTypes[board.pieceType][board.rotation - 1] ~= nil then
-            if board:checkRotate(board.blockX, board.blockY, board.rotation - 1) then
+            if board:checkBlock(board.blockX, board.blockY, board.rotation - 1) then
                 board.rotation = board.rotation - 1;
             end
         else
-            if board:checkRotate(board.blockX, board.blockY, #board.blockTypes[board.pieceType]) then
+            if board:checkBlock(board.blockX, board.blockY, #board.blockTypes[board.pieceType]) then
                 board.rotation = #board.blockTypes[board.pieceType]; 
             end
         end 
