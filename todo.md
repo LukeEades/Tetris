@@ -1,4 +1,3 @@
--Randomly generate specific tetris brick types and colors
 -Add ability to check if a row is filled
 -Delete row if filled
 -End game once blocks reach the top

@@ -167,6 +167,7 @@ function Board:update(dt)
             self.blockY = self.blockY + 1;
         else
             self:turnStatic(self.blockX,self.blockY, self.rotation); 
+            self:checkRowFull()
             self:spawnNew();
         end 
         self.timer = 1; 
@@ -224,4 +225,40 @@ function Board:spawnNew()
     self.rotation = 1; 
     self.blockX = 3; 
     self.blockY = 1;
+end
+function Board:checkRowFull()
+    local counter = 0; 
+    for y = 1, self.h do 
+        for x = 1, self.w do 
+            if self.data[y][x] ~= 1 then
+                counter = counter + 1; 
+            end
+        end
+        if counter >= 10 then
+            local num = y; 
+            while not self:isFirstRow(num) do
+                print('lets gooo'); 
+                self:deleteRow(num); 
+                num = num - 1; 
+            end
+            return true; 
+        end
+        counter = 0; 
+    end
+    return false; 
+end
+function Board:deleteRow(y)
+    if y > 1 then
+        for x = 1, 10 do 
+            self.data[y][x] = self.data[y - 1][x]; 
+        end
+    end
+end
+function Board:isFirstRow(y)
+    for x = 1, 10 do
+        if self.data[y - 1][x] ~= 1 then
+            return false;  
+        end
+    end
+    return true;
 end

@@ -61,6 +61,7 @@ function love.keypressed(key)
             board.blockY = board.blockY + 1; 
         elseif board:checkBlock(board.blockX, board.blockY + 1, board.rotation) == false then
             board:turnStatic(board.blockX,board.blockY, board.rotation); 
+            board:checkRowFull(); 
             board:spawnNew();
         end
     end
