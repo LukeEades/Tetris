@@ -18,7 +18,9 @@ function love.update(dt)
 end
 
 function love.draw()
-   board:render(); 
+    love.graphics.setColor(255,0,0);
+    love.graphics.print(tostring(board.score),250,50);
+    board:render(); 
 end
 function love.keypressed(key) 
     if key == 'escape' then

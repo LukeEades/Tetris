@@ -6,12 +6,20 @@ function Board:init()
     self.h = 20; 
     self.w = 10;
     self.data = {};
+    self.score = 0; 
+    self.level = 0; 
+    self.pieceType = math.random(1,7); 
+    self.rotation = 1; 
+    self.blockX = 3; 
+    self.blockY = 0; 
+    self.timer = 1; 
     for y = 1, self.h do 
         self.data[y] = {};
         for x = 1, self.w do 
             self.data[y][x] = 1; 
         end
     end
+    self.scores = {40,100,300,1200}; 
     self.blockTypes = {
         {
             {
@@ -152,16 +160,10 @@ function Board:init()
         {0,0,255/255},
         {255/255,140/255,0}
     }
-    self.pieceType = math.random(1,7); 
-    self.rotation = 1; 
-    self.blockX = 3; 
-    self.blockY = 0; 
-    self.level = 1; 
-    self.timer = 1; 
 end
 
 function Board:update(dt)
-    self.timer = self.timer - .01 * self.level;
+    self.timer = self.timer - .01 * (self.level + 1);
     if self.timer < 0 then
         if self:checkBlock(self.blockX,self.blockY + 1, self.rotation) then
             self.blockY = self.blockY + 1;
@@ -227,6 +229,7 @@ function Board:spawnNew()
     self.blockY = 1;
 end
 function Board:checkRowFull()
+    local rowCount = 0; 
     local counter = 0; 
     for y = 1, self.h do 
         for x = 1, self.w do 
@@ -235,20 +238,18 @@ function Board:checkRowFull()
             end
         end
         if counter >= 10 then
-            print(y); 
+            rowCount = rowCount + 1; 
             local num = y; 
             while num >= 2 do 
                 self:deleteRow(num); 
                 num = num -1; 
             end
-            -- while not self:isFirstRow(num) do
-            --     print('lets gooo');
-            --     self:deleteRow(num); 
-            --     num = num - 1; 
-            -- end
         end
         counter = 0; 
     end 
+    if rowCount > 0 then 
+        self.score = self.score + self.scores[rowCount] * (self.level + 1); 
+    end
 end
 function Board:deleteRow(y)
     if y > 1 then
