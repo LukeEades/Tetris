@@ -13,6 +13,7 @@ function Board:init()
     self.blockX = 3; 
     self.blockY = 0; 
     self.timer = 1; 
+    self.rowsCleared = 0; 
     for y = 1, self.h do 
         self.data[y] = {};
         for x = 1, self.w do 
@@ -249,6 +250,10 @@ function Board:checkRowFull()
     end 
     if rowCount > 0 then 
         self.score = self.score + self.scores[rowCount] * (self.level + 1); 
+        self.rowsCleared = self.rowsCleared + rowCount; 
+        if self.rowsCleared % 10 == 0 then
+            self.level = self.level + 1; 
+        end
     end
 end
 function Board:deleteRow(y)

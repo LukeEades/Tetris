@@ -11,6 +11,9 @@ function love.load()
     board = Board();
     love.graphics.setBackgroundColor(255,255,255,255);
     cellSize = 20; 
+    theme = love.audio.newSource("theme.mp3", "stream");
+    theme:play(); 
+    theme:setLooping(true); 
 end
 
 function love.update(dt)
@@ -20,6 +23,8 @@ end
 function love.draw()
     love.graphics.setColor(255,0,0);
     love.graphics.print(tostring(board.score),250,50);
+    love.graphics.print(tostring(board.rowsCleared),250,60);
+    love.graphics.print(tostring(board.level),250,70);
     board:render(); 
 end
 function love.keypressed(key) 
