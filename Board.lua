@@ -235,17 +235,20 @@ function Board:checkRowFull()
             end
         end
         if counter >= 10 then
+            print(y); 
             local num = y; 
-            while not self:isFirstRow(num) do
-                print('lets gooo'); 
+            while num >= 2 do 
                 self:deleteRow(num); 
-                num = num - 1; 
+                num = num -1; 
             end
-            return true; 
+            -- while not self:isFirstRow(num) do
+            --     print('lets gooo');
+            --     self:deleteRow(num); 
+            --     num = num - 1; 
+            -- end
         end
         counter = 0; 
-    end
-    return false; 
+    end 
 end
 function Board:deleteRow(y)
     if y > 1 then
