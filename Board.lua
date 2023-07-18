@@ -164,22 +164,24 @@ function Board:init()
 end
 
 function Board:update(dt)
-    self.timer = self.timer - .01 * (self.level + 1);
-    if self.timer < 0 then
-        if self:checkBlock(self.blockX,self.blockY + 1, self.rotation) then
-            self.blockY = self.blockY + 1;
-        else
-            self:turnStatic(self.blockX,self.blockY, self.rotation); 
-            self:checkRowFull();
-            if gamestate == "game" then
-                self:spawnNew();
+    if gamestate == "game" then 
+            self.timer = self.timer - .01 * (self.level + 1);
+        if self.timer < 0 then
+            if self:checkBlock(self.blockX,self.blockY + 1, self.rotation) then
+                self.blockY = self.blockY + 1;
+            else
+                self:turnStatic(self.blockX,self.blockY, self.rotation); 
+                self:checkRowFull();
+                if gamestate == "game" then
+                    self:spawnNew();
+                end
+            end 
+            self.timer = 1; 
+        end
+        for x = 1, 10 do 
+            if self.data[3][x] ~= 1 then
+                gamestate = "game over"; 
             end
-        end 
-        self.timer = 1; 
-    end
-    for x = 1, 10 do 
-        if self.data[3][x] ~= 1 then
-            gamestate = "game over"; 
         end
     end
 end
