@@ -12,6 +12,8 @@ function love.load()
     love.graphics.setBackgroundColor(255,255,255,255);
     cellSize = 20; 
     theme = love.audio.newSource("theme.mp3", "stream");
+    move = love.audio.newSource("brickmove.wav", "static"); 
+    clear = love.audio.newSource("clear.wav", "static");
     theme:play(); 
     theme:setLooping(true); 
 end
@@ -66,6 +68,8 @@ function love.keypressed(key)
     if key == "down" then
         if board:checkBlock(board.blockX, board.blockY + 1, board.rotation) then
             board.blockY = board.blockY + 1; 
+            move:stop(); 
+            move:play(); 
         elseif board:checkBlock(board.blockX, board.blockY + 1, board.rotation) == false then
             board:turnStatic(board.blockX,board.blockY, board.rotation); 
             board:checkRowFull(); 

@@ -262,6 +262,7 @@ function Board:deleteRow(y)
             self.data[y][x] = self.data[y - 1][x]; 
         end
     end
+    clear:play(); 
 end
 function Board:isFirstRow(y)
     for x = 1, 10 do
