@@ -1,4 +1,0 @@
--End game once blocks reach the top
--Add scoreboard
--Add start screen
--Add end screen

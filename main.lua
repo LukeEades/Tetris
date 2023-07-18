@@ -38,10 +38,10 @@ function love.draw()
     end
 end
 function love.keypressed(key) 
+    if key == 'escape' then
+        love.window.close(); 
+    end
     if gamestate == "game" then
-        if key == 'escape' then
-            love.window.close(); 
-        end
         if key == "x" then
             if board.blockTypes[board.pieceType][board.rotation + 1] ~= nil then
                 if board:checkBlock(board.blockX, board.blockY, board.rotation + 1) then
