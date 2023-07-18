@@ -16,6 +16,8 @@ function love.load()
     clear = love.audio.newSource("clear.wav", "static");
     theme:play(); 
     theme:setLooping(true); 
+    gamestate = "game"; 
+    love.graphics.setDefaultFilter("nearest", "nearest",1); 
 end
 
 function love.update(dt)
@@ -24,10 +26,13 @@ end
 
 function love.draw()
     love.graphics.setColor(255,0,0);
-    love.graphics.print(tostring(board.score),250,50);
-    love.graphics.print(tostring(board.rowsCleared),250,60);
-    love.graphics.print(tostring(board.level),250,70);
+    love.graphics.print("SCORE:"..tostring(board.score),250,20);
+    love.graphics.print("Rows Cleared:"..tostring(board.rowsCleared),250,40);
+    love.graphics.print("LEVEL:"..tostring(board.level),250,60);
     board:render(); 
+    if gamestate == "game over" then
+        love.graphics.print("Game Over!",40,150,0,2,2);
+    end
 end
 function love.keypressed(key) 
     if key == 'escape' then
@@ -73,7 +78,9 @@ function love.keypressed(key)
         elseif board:checkBlock(board.blockX, board.blockY + 1, board.rotation) == false then
             board:turnStatic(board.blockX,board.blockY, board.rotation); 
             board:checkRowFull(); 
-            board:spawnNew();
+            if gamestate == "game" then
+                board:spawnNew();
+            end
         end
     end
 end

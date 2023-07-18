@@ -170,10 +170,17 @@ function Board:update(dt)
             self.blockY = self.blockY + 1;
         else
             self:turnStatic(self.blockX,self.blockY, self.rotation); 
-            self:checkRowFull()
-            self:spawnNew();
+            self:checkRowFull();
+            if gamestate == "game" then
+                self:spawnNew();
+            end
         end 
         self.timer = 1; 
+    end
+    for x = 1, 10 do 
+        if self.data[3][x] ~= 1 then
+            gamestate = "game over"; 
+        end
     end
 end
 
